@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:locally/DummyData/dummy.dart';
+
 import 'package:locally/model/contact_model.dart';
 
 import 'package:locally/model/destination_model.dart';
@@ -27,7 +27,7 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
   late String tempDropDownFilterParameter; //searchbar logic
 
   //*Storing Contacts Details
-  final List<ContactModel> initialState = DummyData().contacts;
+
   //*Filter Parameters used in DropDownMenu
   final List<String> filterParameters = ['All', 'People', 'Store'];
   @override
@@ -45,6 +45,9 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
   Widget build(BuildContext context) {
     print('Directory_Screen State Updated');
     final store = StoreProvider.of<AppState>(context);
+    final List<ContactModel> initialState =
+        store.state.filterState.initialState;
+
     tempStateForSearchBar = store.state;
     tempDropDownFilterParameter =
         store.state.filterState.dropDownFilterParameter;
@@ -73,7 +76,10 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
                               ))
                           .toList(),
                       onChanged: (value) {
-                        _dropDownMenuLogic(value: value, context: context);
+                        _dropDownMenuLogic(
+                            value: value,
+                            context: context,
+                            initialState: initialState);
                       }),
                 ),
               ),
@@ -88,17 +94,17 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
             child: Container(
                 child: StoreConnector<AppState, List>(
                     converter: (store) =>
-                        store.state.filterState.locations.toList(),
+                        store.state.filterState.contacts.toList(),
                     builder: (context, vm) {
                       _searchBarLogic(context);
                       return ListView.builder(
                         itemBuilder: (context, index) => customListTile(
                           id: vm[index].id,
-                          isPeople: vm[index].people,
+                          isPeople: vm[index].isPeople,
                           name: vm[index].name,
                           designation: vm[index].designation,
                         ),
-                        itemCount: store.state.filterState.locations.length,
+                        itemCount: store.state.filterState.contacts.length,
                       );
                     })),
           )
@@ -158,7 +164,6 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
             Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0));
   }
 
-  // TODO: try to optimize for better UI so that user does not see the clearing action;
   void _onListTileTap(int id) {
     final store = StoreProvider.of<AppState>(context);
     store.dispatch(MakeListTileInContactScreen(id: id));
@@ -168,10 +173,12 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
     textEditingController.clear();
   }
 
-  //TODO: Try to seperate DROPDOWNMENU logic from UI
 //dispatch action after comparing value from dropdownMenu
   void _dropDownMenuLogic(
-      {required String? value, required BuildContext context}) {
+      {required String? value,
+      required BuildContext context,
+      required List<ContactModel> initialState}) {
+    textEditingController.clear();
     final store = StoreProvider.of<AppState>(context);
     if (value == 'All') {
       store.dispatch(
@@ -185,7 +192,6 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
     }
   }
 
-//TODO: Try to seperate SEARCHBAR logic from UI
   //*SEARCHBAR LOGIC
   ///tempstateforsearchbar stores the initial state of each dropDownMenu, and performs search function on that state itself.
   ///anychange in state is determined by comparing tempDropdownIndex with present dropdownIndex

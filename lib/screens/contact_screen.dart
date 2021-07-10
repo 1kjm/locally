@@ -42,7 +42,9 @@ class ContactScreen extends StatelessWidget {
                                     ]),
                                     color: Colors.blueAccent),
                                 child: Icon(
-                                  vm.first.people ? Icons.people : Icons.store,
+                                  vm.first.isPeople
+                                      ? Icons.people
+                                      : Icons.store,
                                   size: 100,
                                 ),
                               ),
@@ -112,7 +114,7 @@ class ContactScreen extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(3)),
                                   child: ListTile(
-                                    leading: vm.first.people
+                                    leading: vm.first.isPeople
                                         ? Icon(Icons.people_rounded)
                                         : Icon(Icons.store),
                                     title: Text(

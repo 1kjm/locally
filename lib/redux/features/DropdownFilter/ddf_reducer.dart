@@ -3,18 +3,18 @@ import 'package:locally/redux/features/DropdownFilter/ddf_actions.dart';
 
 AppState dropDownfilterReducer(AppState newState, action) {
   if (action is FilterAll) {
-    newState.filterState.locations = action.initialState.toList();
+    newState.filterState.contacts = action.initialState.toList();
     newState.filterState.dropDownFilterParameter = action.payload;
   } else if (action is FilterStore) {
-    newState.filterState.locations = action.initialState.toList();
+    newState.filterState.contacts = action.initialState.toList();
 
-    newState.filterState.locations = newState.filterState.locations
-      ..retainWhere((element) => element.store);
+    newState.filterState.contacts = newState.filterState.contacts
+      ..retainWhere((element) => element.isStore);
     newState.filterState.dropDownFilterParameter = action.payload;
   } else if (action is FilterPeople) {
-    newState.filterState.locations = action.initialState.toList();
-    newState.filterState.locations = newState.filterState.locations
-      ..retainWhere((element) => element.people);
+    newState.filterState.contacts = action.initialState.toList();
+    newState.filterState.contacts = newState.filterState.contacts
+      ..retainWhere((element) => element.isPeople);
     newState.filterState.dropDownFilterParameter = action.payload;
   }
 
