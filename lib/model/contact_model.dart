@@ -2,14 +2,14 @@ class ContactModel {
   int phoneNumber;
   String name;
   String designation;
-  bool store;
-  bool people;
+  bool isStore;
+  bool isPeople;
   int id;
   ContactModel(
       {required this.designation,
       required this.name,
       required this.phoneNumber,
-      required this.store,
-      required this.people,
+      required this.isStore,
+      required this.isPeople,
       required this.id});
 }

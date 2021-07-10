@@ -32,6 +32,8 @@ dependencies:
   flutter_redux: ^0.8.2
   lint: ^1.5.3
   url_launcher: ^6.0.9
+  firebase: ^9.0.1
+  cloud_firestore: ^2.3.0
   
 
 dev_dependencies:

@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
       length: 2,
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Builder(
               builder: (context) => Text('Athirampuzha'),

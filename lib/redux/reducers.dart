@@ -1,3 +1,4 @@
+import 'package:locally/redux/Firestore/firestore_reducer.dart';
 import 'package:locally/redux/Routes/navigation_action.dart';
 import 'package:locally/redux/Routes/navigation_reducer.dart';
 import 'package:locally/redux/appstate.dart';
@@ -10,12 +11,13 @@ AppState reducer(AppState prevState, dynamic action) {
   searchInputReducer(newState, action);
   navigatorReducer(newState, action); //for navigation between pages
   _idForListTileInContactPage(newState, action);
+  dataFromFirestore(newState, action);
   return newState;
 }
 
 AppState _idForListTileInContactPage(AppState newState, action) {
   if (action is MakeListTileInContactScreen) {
-    newState.tempContacts.addAll(newState.filterState.locations);
+    newState.tempContacts.addAll(newState.filterState.contacts);
     newState.tempContacts.retainWhere((element) => element.id == action.id);
   }
   return newState;
