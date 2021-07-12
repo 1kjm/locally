@@ -1,1 +1,1 @@
-enum Destination { HOMEPAGE, CONTACTSPAGE }
+enum Destination { HOMEPAGE, CONTACTSPAGE, INTROSCREEN }

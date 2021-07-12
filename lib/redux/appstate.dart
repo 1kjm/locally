@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:locally/model/contact_model.dart';
 import 'package:locally/redux/Routes/navigation_appstate.dart';
 import 'package:locally/redux/features/DropdownFilter/ddf_appstate.dart';
+import 'package:locally/redux/initialRunChecker/initial_run_check_state.dart';
+
 import 'package:locally/theme.dart';
 
 class AppState {
@@ -16,6 +18,7 @@ class AppState {
 
   ///AppTheme
   late ThemeData customtheme;
+  InitialRunCheckState initialRunCheckState = InitialRunCheckState.initial();
 
   AppState({
     required this.tempContacts,
@@ -34,5 +37,7 @@ class AppState {
     tempContacts = another.tempContacts;
     customtheme = another.customtheme;
     filterState.initialState = another.filterState.initialState;
+    initialRunCheckState.isInitialRun =
+        another.initialRunCheckState.isInitialRun;
   }
 }

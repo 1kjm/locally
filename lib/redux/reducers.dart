@@ -12,6 +12,7 @@ AppState reducer(AppState prevState, dynamic action) {
   navigatorReducer(newState, action); //for navigation between pages
   _idForListTileInContactPage(newState, action);
   dataFromFirestore(newState, action);
+
   return newState;
 }
 

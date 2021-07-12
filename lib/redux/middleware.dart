@@ -7,6 +7,8 @@ import 'package:locally/redux/Routes/navigation_action.dart';
 import 'package:locally/redux/Routes/navigation_middleware.dart';
 
 import 'package:locally/redux/appstate.dart';
+import 'package:locally/redux/initialRunChecker/initial_run_check_actions.dart';
+import 'package:locally/redux/initialRunChecker/initial_run_check_middlewares.dart';
 import 'package:redux/redux.dart';
 
 class AppMiddleware {
@@ -22,7 +24,9 @@ class AppMiddleware {
               .navigateBackMiddleware()),
       TypedMiddleware<AppState, GetDataFromFirestore>(
         FirestoreMiddleWare().firebaseFirestoreMiddleware(),
-      )
+      ),
+      TypedMiddleware<AppState, ChangeInitialRunCheckValue>(
+          InitialRunCheckMiddleWare().setValueOfInitialRunMiddleware())
     ];
   }
 }
