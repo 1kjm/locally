@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     store.dispatch(GetDataFromFirestore());
-
     print('initial run');
     return StoreProvider<AppState>(
         store: store,
@@ -40,10 +39,14 @@ class MyApp extends StatelessWidget {
                         body: Container(child: CircularProgressIndicator()));
                   default:
                     if (!snapshot.hasError) {
-                      return snapshot.data! ? IntroScreen() : HomeScreen();
+                      return snapshot.hasData ? IntroScreen() : HomeScreen();
                     } else
-                      print('error in snapshot');
-                    return IntroScreen();
+                      print('Fatal Error Please Reinstall The App');
+                    return Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
                 }
               },
             )));

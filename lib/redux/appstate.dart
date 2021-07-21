@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locally/model/contact_model.dart';
+
 import 'package:locally/redux/Routes/navigation_appstate.dart';
 import 'package:locally/redux/features/DropdownFilter/ddf_appstate.dart';
 import 'package:locally/redux/initialRunChecker/initial_run_check_state.dart';
