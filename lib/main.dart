@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                         body: Container(child: CircularProgressIndicator()));
                   default:
                     if (!snapshot.hasError) {
-                      return snapshot.hasData ? IntroScreen() : HomeScreen();
+                      return snapshot.data! ? IntroScreen() : HomeScreen();
                     } else
                       print('Fatal Error Please Reinstall The App');
                     return Scaffold(
