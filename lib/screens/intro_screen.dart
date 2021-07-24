@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:locally/features/AutoCompleteTextField/actf_ui.dart';
 import 'package:locally/model/destination_model.dart';
 
 import 'package:locally/redux/Routes/navigation_action.dart';
 
 import 'package:locally/redux/appstate.dart';
 import 'package:locally/redux/initialRunChecker/initial_run_check_actions.dart';
-import 'package:locally/screens/widgets/auto_complete_textfield.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -30,7 +30,6 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     print('introScreen Build');
     final store = StoreProvider.of<AppState>(context);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

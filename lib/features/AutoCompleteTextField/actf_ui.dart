@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:locally/screens/widgets/actf_bloc.dart';
+import 'package:locally/features/AutoCompleteTextField/actf_actions.dart';
+import 'package:locally/features/AutoCompleteTextField/actf_logic.dart';
+import 'package:locally/features/AutoCompleteTextField/actf_services.dart';
 
 class AutoCompleteTextField extends StatefulWidget {
   const AutoCompleteTextField({Key? key}) : super(key: key);
@@ -62,11 +63,8 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
                                     focusNode: myFocusNode,
                                     onChanged: (value) {
                                       textEditingController.addListener(() {
-                                        if (textEditingController
-                                            .value.text.isNotEmpty) {
-                                          bloc.eventInput.add(
-                                              textEditingController.value.text);
-                                        }
+                                        bloc.eventInput.add(ShowList(
+                                            textEditingController.value.text));
                                       });
                                     },
                                     decoration: const InputDecoration(
@@ -126,5 +124,8 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
   void onListTileTapped(String location) {
     textEditingController.clear();
     textEditingController.text = location;
+    textEditingController.selection = TextSelection.fromPosition(
+        TextPosition(offset: textEditingController.text.length));
+    bloc.eventInput.add(HideList());
   }
 }
