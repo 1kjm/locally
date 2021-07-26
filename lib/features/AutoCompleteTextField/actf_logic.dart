@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:locally/features/AutoCompleteTextField/actf_actions.dart';
+import 'package:locally/features/AutoCompleteTextField/actf_bloc_actions.dart';
 
 import 'package:locally/redux_store.dart';
 

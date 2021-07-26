@@ -3,7 +3,6 @@ import 'package:locally/model/contact_model.dart';
 
 import 'package:locally/redux/Routes/navigation_appstate.dart';
 import 'package:locally/redux/features/DropdownFilter/ddf_appstate.dart';
-import 'package:locally/redux/initialRunChecker/initial_run_check_state.dart';
 
 import 'package:locally/theme.dart';
 
@@ -19,9 +18,6 @@ class AppState {
 
   ///AppTheme
   late ThemeData customtheme;
-
-  ///Initial Run Check
-  InitialRunCheckState initialRunCheckState = InitialRunCheckState.initial();
 
   ///LocationIndex
   late List locationIndex;
@@ -46,8 +42,7 @@ class AppState {
     tempContacts = another.tempContacts;
     customtheme = another.customtheme;
     filterState.initialState = another.filterState.initialState;
-    initialRunCheckState.isInitialRun =
-        another.initialRunCheckState.isInitialRun;
+
     locationIndex = another.locationIndex;
     hasLocationIndexData = another.hasLocationIndexData;
   }

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:locally/features/AutoCompleteTextField/actf_ui.dart';
-
-import 'package:locally/model/destination_model.dart';
-
-import 'package:locally/redux/Routes/navigation_action.dart';
-
+import 'package:locally/features/actf_redux_actions.dart';
 import 'package:locally/redux/appstate.dart';
-import 'package:locally/redux/initialRunChecker/initial_run_check_actions.dart';
+import 'package:locally/redux_store.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -19,6 +15,7 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
+    store.dispatch(GetLocationIndex());
     super.initState();
   }
 
@@ -31,34 +28,32 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     print('introScreen Build');
     final store = StoreProvider.of<AppState>(context);
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: FutureBuilder(
-          initialData: true,
-          future: store.state.hasLocationIndexData,
-          builder: (context, AsyncSnapshot<bool> snapshot) {
-            print('intro' + snapshot.data.toString());
-            if (snapshot.data == true)
-              return Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    Container(
-                        height: MediaQuery.of(context).size.height / 2,
-                        child: AutoCompleteTextField()),
-                    IconButton(
-                        onPressed: () async {
-                          await store.dispatch(ChangeInitialRunCheckValue());
-                          store.dispatch(NavigateToNext(
-                              destination: Destination.HOMEPAGE));
-                        },
-                        icon: Icon(Icons.add))
-                  ],
-                ),
-              );
-            return Center(child: CircularProgressIndicator());
-          }),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: FutureBuilder(
+            initialData: true,
+            future: store.state.hasLocationIndexData,
+            builder: (context, AsyncSnapshot<bool> snapshot) {
+              print('intro' + snapshot.data.toString());
+              return snapshot.data == true
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: AutoCompleteTextField(),
+                            flex: 1,
+                          ),
+                        ],
+                      ),
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(
+                      color: Colors.red,
+                    ));
+            }),
+      ),
     );
   }
 }

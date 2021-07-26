@@ -4,14 +4,13 @@ import 'package:locally/features/actf_redux_actions.dart';
 import 'package:locally/features/actf_middleware.dart';
 import 'package:locally/redux/Firestore/firestore_actions.dart';
 import 'package:locally/redux/Firestore/firestore_middleware.dart';
+
 import 'package:locally/redux/Routes/navigation_action.dart';
 
 import 'package:locally/redux/Routes/navigation_middleware.dart';
 
 import 'package:locally/redux/appstate.dart';
 
-import 'package:locally/redux/initialRunChecker/initial_run_check_actions.dart';
-import 'package:locally/redux/initialRunChecker/initial_run_check_middlewares.dart';
 import 'package:redux/redux.dart';
 
 class AppMiddleware {
@@ -28,8 +27,6 @@ class AppMiddleware {
       TypedMiddleware<AppState, GetDataFromFirestore>(
         FirestoreMiddleWare().firebaseFirestoreMiddleware(),
       ),
-      TypedMiddleware<AppState, ChangeInitialRunCheckValue>(
-          InitialRunCheckMiddleWare().setValueOfInitialRunMiddleware()),
       TypedMiddleware<AppState, GetLocationIndex>(
           ActfMiddleWare().locationIndexMiddleware()),
     ];

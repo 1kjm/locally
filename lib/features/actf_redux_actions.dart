@@ -1,7 +1,7 @@
 class GetLocationIndex {}
 
-class StoreLocationIndex {
+class SaveLocationIndex {
   bool hasDataFlag = true;
   List payload;
-  StoreLocationIndex({required this.payload, required this.hasDataFlag});
+  SaveLocationIndex({required this.payload, required this.hasDataFlag});
 }

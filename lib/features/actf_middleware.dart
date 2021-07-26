@@ -16,8 +16,7 @@ class ActfMiddleWare {
         await locationIndex.then((docSnapshot) {
           if (docSnapshot.data() != null) {
             List temp = docSnapshot.data()!['locations'];
-            store
-                .dispatch(StoreLocationIndex(payload: temp, hasDataFlag: true));
+            store.dispatch(SaveLocationIndex(payload: temp, hasDataFlag: true));
           }
         });
       }
