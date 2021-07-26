@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:locally/features/AutoCompleteTextField/actf_actions.dart';
 import 'package:locally/features/AutoCompleteTextField/actf_logic.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_services.dart';
+
+import 'package:locally/redux/appstate.dart';
 
 class AutoCompleteTextField extends StatefulWidget {
   const AutoCompleteTextField({Key? key}) : super(key: key);
@@ -30,22 +32,14 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
   final bloc = ActfBloc();
   @override
   Widget build(BuildContext context) {
+    final store = StoreProvider.of<AppState>(context);
     return FutureBuilder(
-        future: ActfServices().dataFromFirestore(),
+        future: store.state.hasLocationIndexData,
         builder: (context, futureSnapshot) {
-          if (!futureSnapshot.hasData) {
-            if (futureSnapshot.connectionState == ConnectionState.waiting) {
-              Center(
-                child: CircularProgressIndicator(),
-              );
-            } else
-              return Center(
-                child: Text('No Data'),
-              );
-          } else if (futureSnapshot.hasData) {
+          if (futureSnapshot.data == true) {
             return StreamBuilder(
                 stream: bloc.outputList,
-                initialData: ActfInitialStore().initialrun(),
+                initialData: ActfInitialStore.initialrun(),
                 builder: (context, AsyncSnapshot<BlocModel> streamSnapshot) {
                   if (streamSnapshot.hasData) {
                     return Stack(

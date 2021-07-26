@@ -1,3 +1,4 @@
+import 'package:locally/features/actf_reducer.dart';
 import 'package:locally/redux/Firestore/firestore_reducer.dart';
 import 'package:locally/redux/Routes/navigation_action.dart';
 import 'package:locally/redux/Routes/navigation_reducer.dart';
@@ -13,6 +14,7 @@ AppState reducer(AppState prevState, dynamic action) {
   navigatorReducer(newState, action); //for navigation between pages
   _idForListTileInContactPage(newState, action);
   dataFromFirestore(newState, action);
+  locationDataFromFirestore(newState, action);
 
   return newState;
 }

@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:locally/features/AutoCompleteTextField/actf_actions.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_repository.dart';
+
+import 'package:locally/redux_store.dart';
+
+//*recieveInputFlag is used to control the data passed into the Stream;
+bool recieveInputFlag = true;
 
 class BlocModel {
   List locationdata;
@@ -11,8 +15,9 @@ class BlocModel {
 
 class ActfInitialStore {
 //* [initialRun] is to initialize the streambuilder with values from firestore;
-  BlocModel initialrun() {
-    return BlocModel(buildTrigger: false, locationdata: locationsActf.toList());
+  static BlocModel initialrun() {
+    return BlocModel(
+        buildTrigger: false, locationdata: store.state.locationIndex.toList());
   }
 }
 
@@ -32,11 +37,10 @@ class ActfBloc {
   }
 
   void listConverter(event) {
-    print(recieveInputFlag);
-    BlocModel suggestions = ActfInitialStore().initialrun();
+    print('recieveInputFlag= ' + recieveInputFlag.toString());
+    BlocModel suggestions = ActfInitialStore.initialrun();
 
     if (event is ShowList) {
-      print(locationsActf);
       if (event.textInput.isEmpty) {
         ResetBloc.reset();
         recieveInputFlag = true;
@@ -53,7 +57,6 @@ class ActfBloc {
         listInput.add(suggestions);
       }
     } else if (event is HideList) {
-      print('pooi');
       recieveInputFlag = false;
       suggestions.buildTrigger = false;
       listInput.add(suggestions);
@@ -65,6 +68,5 @@ class ActfBloc {
   void dispose() {
     _blocStateController.close();
     _eventController.close();
-    locationsActf.clear();
   }
 }

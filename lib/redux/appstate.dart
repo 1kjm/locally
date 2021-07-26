@@ -19,16 +19,24 @@ class AppState {
 
   ///AppTheme
   late ThemeData customtheme;
+
+  ///Initial Run Check
   InitialRunCheckState initialRunCheckState = InitialRunCheckState.initial();
 
-  AppState({
-    required this.tempContacts,
-    required this.customtheme,
-  });
+  ///LocationIndex
+  late List locationIndex;
+  late Future<bool> hasLocationIndexData;
+
+  AppState(
+      {required this.tempContacts,
+      required this.customtheme,
+      required this.locationIndex,
+      required this.hasLocationIndexData});
   factory AppState.initialState() => AppState(
-        tempContacts: [],
-        customtheme: AppTheme.theme,
-      );
+      tempContacts: [],
+      customtheme: AppTheme.theme,
+      locationIndex: [],
+      hasLocationIndexData: Future.value(false));
 
   AppState.fromAppState(AppState another) {
     filterState.dropDownFilterParameter =
@@ -40,5 +48,7 @@ class AppState {
     filterState.initialState = another.filterState.initialState;
     initialRunCheckState.isInitialRun =
         another.initialRunCheckState.isInitialRun;
+    locationIndex = another.locationIndex;
+    hasLocationIndexData = another.hasLocationIndexData;
   }
 }

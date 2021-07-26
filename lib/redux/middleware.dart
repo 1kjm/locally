@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:locally/features/actf_redux_actions.dart';
+import 'package:locally/features/actf_middleware.dart';
 import 'package:locally/redux/Firestore/firestore_actions.dart';
 import 'package:locally/redux/Firestore/firestore_middleware.dart';
 import 'package:locally/redux/Routes/navigation_action.dart';
@@ -28,6 +30,8 @@ class AppMiddleware {
       ),
       TypedMiddleware<AppState, ChangeInitialRunCheckValue>(
           InitialRunCheckMiddleWare().setValueOfInitialRunMiddleware()),
+      TypedMiddleware<AppState, GetLocationIndex>(
+          ActfMiddleWare().locationIndexMiddleware()),
     ];
   }
 }
