@@ -52,7 +52,7 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
                           children: <Widget>[
                             Container(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                // crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   SizedBox(height: size.height * 0.07),
                                   Container(

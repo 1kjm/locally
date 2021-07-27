@@ -32,7 +32,8 @@ class AppState {
       tempContacts: [],
       customtheme: AppTheme.theme,
       locationIndex: [],
-      hasLocationIndexData: Future.value(false));
+      hasLocationIndexData:
+          Future.delayed(Duration(seconds: 10), () => Future.value(true)));
 
   AppState.fromAppState(AppState another) {
     filterState.dropDownFilterParameter =
