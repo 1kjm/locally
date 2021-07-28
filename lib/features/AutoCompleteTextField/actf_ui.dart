@@ -38,11 +38,10 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final store = StoreProvider.of<AppState>(context);
-    return FutureBuilder(
-        future: store.state.hasLocationIndexData,
-        builder: (context, futureSnapshot) {
-          if (futureSnapshot.data == true) {
-            return StreamBuilder(
+    return StoreConnector<AppState, List>(
+        converter: (store) => store.state.locationIndex,
+        builder: (context, vm) => vm.length > 0
+            ? StreamBuilder(
                 stream: bloc.outputList,
                 initialData: ActfInitialStore.initialrun(),
                 builder: (context, AsyncSnapshot<BlocModel> streamSnapshot) {
@@ -141,10 +140,10 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
                     );
                   } else
                     return Center(child: Text('Please Wait'));
-                });
-          }
-          return Center(child: CircularProgressIndicator());
-        });
+                })
+            : Center(
+                child: CircularProgressIndicator(),
+              ));
   }
 
   Widget listTileWidget(List locationIndex) {

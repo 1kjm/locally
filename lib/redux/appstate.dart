@@ -21,19 +21,17 @@ class AppState {
 
   ///LocationIndex
   late List locationIndex;
-  late Future<bool> hasLocationIndexData;
 
-  AppState(
-      {required this.tempContacts,
-      required this.customtheme,
-      required this.locationIndex,
-      required this.hasLocationIndexData});
+  AppState({
+    required this.tempContacts,
+    required this.customtheme,
+    required this.locationIndex,
+  });
   factory AppState.initialState() => AppState(
-      tempContacts: [],
-      customtheme: AppTheme.theme,
-      locationIndex: [],
-      hasLocationIndexData:
-          Future.delayed(Duration(seconds: 10), () => Future.value(true)));
+        tempContacts: [],
+        customtheme: AppTheme.theme,
+        locationIndex: [],
+      );
 
   AppState.fromAppState(AppState another) {
     filterState.dropDownFilterParameter =
@@ -45,6 +43,5 @@ class AppState {
     filterState.initialState = another.filterState.initialState;
 
     locationIndex = another.locationIndex;
-    hasLocationIndexData = another.hasLocationIndexData;
   }
 }

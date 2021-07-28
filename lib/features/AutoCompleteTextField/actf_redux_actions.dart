@@ -1,7 +1,10 @@
+///This action fetches 'LocationIndex' from firestore;
+///This action is first listned by the Middleware;
 class GetLocationIndex {}
 
 class SaveLocationIndex {
-  bool hasDataFlag = true;
   List payload;
-  SaveLocationIndex({required this.payload, required this.hasDataFlag});
+  SaveLocationIndex({
+    required this.payload,
+  });
 }
