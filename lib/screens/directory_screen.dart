@@ -30,6 +30,8 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
 
   //*Filter Parameters used in DropDownMenu
   final List<String> filterParameters = ['All', 'People', 'Store'];
+
+  FocusNode _myfocusNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
 
   @override
   void dispose() {
+    _myfocusNode.dispose();
     textEditingController.dispose();
     super.dispose();
   }
@@ -121,6 +124,7 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
         child: Container(
           padding: EdgeInsets.all(3),
           child: TextField(
+            focusNode: _myfocusNode,
             onChanged: (value) {
               textEditingController.addListener(() {
                 print(textEditingController.text);
@@ -171,6 +175,7 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
     //*to clear textediting controller after navigating to next page
     //*if this is not present data will persist on navigating back and cause duplication of text;
     textEditingController.clear();
+    _myfocusNode.unfocus();
   }
 
 //dispatch action after comparing value from dropdownMenu

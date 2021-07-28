@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:locally/features/AutoCompleteTextField/actf_bloc_actions.dart';
 import 'package:locally/features/AutoCompleteTextField/actf_logic.dart';
 import 'package:locally/model/destination_model.dart';
+import 'package:locally/redux/Firestore/firestore_actions.dart';
 
 import 'package:locally/redux/Routes/navigation_action.dart';
 
@@ -102,6 +103,12 @@ class _AutoCompleteTextFieldState extends State<AutoCompleteTextField> {
                                       ? Center(
                                           child: ElevatedButton(
                                               onPressed: () {
+                                                store.dispatch(
+                                                    GetDataFromFirestore(
+                                                        payload:
+                                                            textEditingController
+                                                                .value.text
+                                                                .toLowerCase()));
                                                 store.dispatch(NavigateToNext(
                                                     destination:
                                                         Destination.HOMEPAGE));

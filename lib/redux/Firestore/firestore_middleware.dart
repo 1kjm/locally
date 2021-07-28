@@ -11,7 +11,7 @@ class FirestoreMiddleWare {
       if (action is GetDataFromFirestore) {
         await FirebaseFirestore.instance
             .collection('locations')
-            .doc('athirampuzha')
+            .doc(action.payload)
             .collection('contacts')
             .doc('data')
             .get()

@@ -42,7 +42,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   color: Colors.red,
                 ));
               } else if (snapshot.hasData) {
-                return snapshot.data == true
+                return snapshot.data!
                     ? Container(
                         height: MediaQuery.of(context).size.height,
                         child: Column(

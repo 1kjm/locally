@@ -1,6 +1,9 @@
 import 'package:locally/model/contact_model.dart';
 
-class GetDataFromFirestore {}
+class GetDataFromFirestore {
+  String payload;
+  GetDataFromFirestore({required this.payload});
+}
 
 class SeperateActionForData {
   final List<ContactModel> data;
