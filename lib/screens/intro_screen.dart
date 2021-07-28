@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_redux_actions.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_ui.dart';
+import 'package:locally/features/AutoCompleteTextField/data/redux/actions.dart';
+import 'package:locally/features/AutoCompleteTextField/presentation/ui.dart';
 
 import 'package:locally/redux/appstate.dart';
 

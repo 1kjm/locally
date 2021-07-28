@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_redux_actions.dart';
+import 'package:locally/features/AutoCompleteTextField/data/redux/actions.dart';
 
 import 'package:locally/redux/appstate.dart';
 import 'package:redux/redux.dart';

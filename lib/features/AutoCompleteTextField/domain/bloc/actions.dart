@@ -1,6 +1,6 @@
-import 'package:locally/features/AutoCompleteTextField/actf_logic.dart';
-
 //this is to show the List of suggestions.
+import 'package:locally/features/AutoCompleteTextField/domain/bloc/bloc.dart';
+
 class ShowList {
   String textInput;
   ShowList(this.textInput);

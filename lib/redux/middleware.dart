@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_middleware.dart';
-import 'package:locally/features/AutoCompleteTextField/actf_redux_actions.dart';
+import 'package:locally/features/AutoCompleteTextField/data/redux/middleware.dart';
+import 'package:locally/features/AutoCompleteTextField/data/redux/actions.dart';
 
 import 'package:locally/redux/Firestore/firestore_actions.dart';
 import 'package:locally/redux/Firestore/firestore_middleware.dart';

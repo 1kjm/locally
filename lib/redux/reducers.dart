@@ -1,4 +1,4 @@
-import 'package:locally/features/AutoCompleteTextField/actf_reducer.dart';
+import 'package:locally/features/AutoCompleteTextField/data/redux/reducer.dart';
 import 'package:locally/redux/Firestore/firestore_reducer.dart';
 import 'package:locally/redux/Routes/navigation_action.dart';
 import 'package:locally/redux/Routes/navigation_reducer.dart';

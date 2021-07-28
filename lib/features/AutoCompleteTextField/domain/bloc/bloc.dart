@@ -1,36 +1,21 @@
 import 'dart:async';
+import 'package:locally/features/AutoCompleteTextField/domain/bloc/actions.dart';
+import 'package:locally/features/AutoCompleteTextField/domain/bloc/model.dart';
+import 'package:locally/features/AutoCompleteTextField/domain/bloc/repository.dart';
 
-import 'package:locally/features/AutoCompleteTextField/actf_bloc_actions.dart';
-
-import 'package:locally/redux_store.dart';
-
-//*recieveInputFlag is used to control the data passed into the Stream;
+///global Variable [recieveInputFlag] used to control the data passed into the Stream;
 bool recieveInputFlag = true;
 
-class BlocModel {
-  List locationdata;
-  bool buildTrigger;
-  BlocModel({required this.buildTrigger, required this.locationdata});
-}
-
-class ActfInitialStore {
-//* [initialRun] is to initialize the streambuilder with values from firestore;
-  static BlocModel initialrun() {
-    return BlocModel(
-        buildTrigger: false, locationdata: store.state.locationIndex.toList());
-  }
-}
-
 class ActfBloc {
-//*eventcontroller listens to changes in state and updates blocstatecontroller;
+  ///eventcontroller listens to changes in state and updates blocstatecontroller;
   final _blocStateController = StreamController<BlocModel>();
   final _eventController = StreamController();
 
-//*State
+  ///State
   StreamSink<BlocModel> get listInput => _blocStateController.sink;
   Stream<BlocModel> get outputList => _blocStateController.stream;
 
-//*Event
+  ///Event
   StreamSink get eventInput => _eventController.sink;
   ActfBloc() {
     _eventController.stream.listen(listConverter);
