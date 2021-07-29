@@ -6,9 +6,9 @@ import 'package:locally/features/AutoCompleteTextField/domain/bloc/model.dart';
 import 'package:locally/features/AutoCompleteTextField/domain/bloc/repository.dart';
 
 import 'package:locally/model/destination_model.dart';
-import 'package:locally/redux/Firestore/firestore_actions.dart';
-import 'package:locally/redux/Routes/navigation_action.dart';
-import 'package:locally/redux/appstate.dart';
+import 'package:locally/data/contacts_data/actions.dart';
+import 'package:locally/features/Navigation/redux/action.dart';
+import 'package:locally/domain/redux/appstate.dart';
 
 class ActfBody extends StatefulWidget {
   const ActfBody({Key? key}) : super(key: key);
@@ -19,11 +19,11 @@ class ActfBody extends StatefulWidget {
 
 class _ActfBodyState extends State<ActfBody> {
   final TextEditingController textEditingController = TextEditingController();
-  FocusNode myFocusNode = FocusNode();
+  FocusNode _myFocusNode = FocusNode();
   @override
   void dispose() {
     textEditingController.dispose();
-    myFocusNode.dispose();
+    _myFocusNode.dispose();
     bloc.dispose();
     super.dispose();
   }
@@ -32,19 +32,18 @@ class _ActfBodyState extends State<ActfBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final store = StoreProvider.of<AppState>(context);
     return StreamBuilder(
         stream: bloc.outputList,
         initialData: ActfInitialStore.initialrun(),
         builder: (context, AsyncSnapshot<BlocModel> streamSnapshot) {
           if (streamSnapshot.hasData) {
-            return stackUi(size, streamSnapshot, store);
+            return stackUi(size, streamSnapshot);
           } else
             return Center(child: Text('Please Wait'));
         });
   }
 
-  Stack stackUi(Size size, AsyncSnapshot<dynamic> streamSnapshot, store) {
+  Stack stackUi(Size size, AsyncSnapshot<dynamic> streamSnapshot) {
     return Stack(
       children: <Widget>[
         new Column(
@@ -72,13 +71,8 @@ class _ActfBodyState extends State<ActfBody> {
                     margin: EdgeInsets.all(10),
                     child: TextFormField(
                       controller: textEditingController,
-                      focusNode: myFocusNode,
-                      onChanged: (value) {
-                        textEditingController.addListener(() {
-                          bloc.eventInput
-                              .add(ShowList(textEditingController.value.text));
-                        });
-                      },
+                      focusNode: _myFocusNode,
+                      onChanged: _textFieldListner,
                       decoration: InputDecoration(
                         fillColor: Colors.lime[200],
                         border: UnderlineInputBorder(
@@ -97,15 +91,7 @@ class _ActfBodyState extends State<ActfBody> {
                   !streamSnapshot.data!.buildTrigger
                       ? Center(
                           child: ElevatedButton(
-                              onPressed: () {
-                                store.dispatch(GetDataFromFirestore(
-                                    payload: textEditingController.value.text
-                                        .toLowerCase()));
-                                store.dispatch(NavigateToNext(
-                                    destination: Destination.HOMEPAGE));
-                                textEditingController.clear();
-                                myFocusNode.unfocus();
-                              },
+                              onPressed: _onElevatedButtonPressed,
                               child: const Text(
                                 '    Search    ',
                                 style: const TextStyle(fontSize: 18.0),
@@ -128,6 +114,21 @@ class _ActfBodyState extends State<ActfBody> {
         )
       ],
     );
+  }
+
+  void _onElevatedButtonPressed() {
+    final store = StoreProvider.of<AppState>(context);
+    store.dispatch(GetDataFromFirestore(
+        payload: textEditingController.value.text.toLowerCase()));
+    store.dispatch(NavigateToNext(destination: Destination.HOMEPAGE));
+    textEditingController.clear();
+    _myFocusNode.unfocus();
+  }
+
+  void _textFieldListner(String value) {
+    textEditingController.addListener(() {
+      bloc.eventInput.add(ShowList(textEditingController.value.text));
+    });
   }
 
   Widget listTileWidget(List locationIndex) {

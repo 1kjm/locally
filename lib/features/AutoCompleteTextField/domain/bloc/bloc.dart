@@ -22,7 +22,6 @@ class ActfBloc {
   }
 
   void listConverter(event) {
-    print('recieveInputFlag= ' + recieveInputFlag.toString());
     BlocModel suggestions = ActfInitialStore.initialrun();
 
     if (event is ShowList) {
@@ -34,11 +33,9 @@ class ActfBloc {
         suggestions.locationdata.retainWhere(
             (element) => element.toString().contains(event.textInput));
         //buildTrigger logic
-
         event.textInput.length > 1
             ? suggestions.buildTrigger = true
             : suggestions.buildTrigger = false;
-
         listInput.add(suggestions);
       }
     } else if (event is HideList) {
@@ -48,8 +45,8 @@ class ActfBloc {
     }
   }
 
-//*To dispose the StreamControllers as well as to clear Global LocationActf variable;
-//This is called from [dispose] in widget tree;
+  ///To dispose the StreamControllers;
+  ///This is called from [dispose] in widget tree;
   void dispose() {
     _blocStateController.close();
     _eventController.close();

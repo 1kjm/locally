@@ -1,9 +1,10 @@
 import 'package:locally/features/AutoCompleteTextField/data/redux/actions.dart';
-import 'package:locally/redux/appstate.dart';
+import 'package:locally/domain/redux/appstate.dart';
 
+///Saves the 'LocationIndex' Coming as payload to Store;
 AppState locationDataFromFirestore(AppState newState, action) {
   if (action is SaveLocationIndex) {
-    newState.locationIndex = action.payload;
+    newState.locationIndexList = action.payload;
   }
   return newState;
 }

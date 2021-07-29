@@ -1,12 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-
-import 'package:locally/redux/appstate.dart';
-
-import 'package:locally/redux_store.dart';
-
-import 'package:locally/screens/intro_screen.dart';
+import 'package:locally/domain/redux/appstate.dart';
+import 'package:locally/domain/redux/store.dart';
+import 'package:locally/presentation/screens/intro_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

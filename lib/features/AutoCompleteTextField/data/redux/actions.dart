@@ -1,7 +1,7 @@
 ///This action fetches 'LocationIndex' from firestore;
-///This action is first listned by the Middleware;
 class GetLocationIndex {}
 
+///Saves 'LocationIndex' to Store;
 class SaveLocationIndex {
   List payload;
   SaveLocationIndex({
