@@ -1,0 +1,1 @@
+The reducer of DropDownFilter also controls the state of SearchBar;

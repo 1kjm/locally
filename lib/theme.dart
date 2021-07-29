@@ -9,13 +9,13 @@ class AppTheme {
 
   static get theme {
     return _themeData.copyWith(
+        scaffoldBackgroundColor: Colors.lime[50],
         tabBarTheme: TabBarTheme(labelColor: Colors.black),
-        primaryColor: Colors.black,
+        primaryColor: Colors.white,
         appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(
               color: Colors.blue,
             ),
-            backgroundColor: Colors.white,
             textTheme: TextTheme(
                 headline6: TextStyle(
                     color: Colors.black,

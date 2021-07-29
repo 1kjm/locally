@@ -80,4 +80,6 @@ class DummyData {
         isPeople: false,
         isStore: true),
   ];
+
+  List<String> locationIndex = ['kottayam', 'athirampuzha', 'mannanam'];
 }
