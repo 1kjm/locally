@@ -5,6 +5,7 @@ class NavigationAnimation {
   NavigationAnimation({required this.pageRouteName});
   Route createRoute() {
     return PageRouteBuilder(
+      maintainState: false,
       pageBuilder: (BuildContext context, animation, secondaryAnimation) =>
           pageRouteName,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
