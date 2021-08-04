@@ -36,10 +36,8 @@ class ContactScreen extends StatelessWidget {
                             Positioned.fill(
                               child: Container(
                                 decoration: BoxDecoration(
-                                    gradient: LinearGradient(colors: [
-                                      Colors.blueAccent,
-                                      Colors.purpleAccent
-                                    ]),
+                                    gradient: LinearGradient(
+                                        colors: [Colors.teal, Colors.white]),
                                     color: Colors.blueAccent),
                                 child: Icon(
                                   vm.first.isPeople
@@ -92,7 +90,20 @@ class ContactScreen extends StatelessWidget {
                               ),
                               Container(
                                 child: Card(
-                                  color: Colors.green,
+                                  color: Colors.indigo[50],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3)),
+                                  child: ListTile(
+                                    leading: Text(
+                                      vm.first.designation,
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Card(
+                                  color: Colors.indigoAccent[50],
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(3)),
                                   child: ListTile(
@@ -106,22 +117,6 @@ class ContactScreen extends StatelessWidget {
                                         Icons.phone,
                                         color: Colors.black,
                                       )),
-                                ),
-                              ),
-                              Container(
-                                child: Card(
-                                  color: Colors.amber,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(3)),
-                                  child: ListTile(
-                                    leading: vm.first.isPeople
-                                        ? Icon(Icons.people_rounded)
-                                        : Icon(Icons.store),
-                                    title: Text(
-                                      vm.first.designation,
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  ),
                                 ),
                               ),
                             ],

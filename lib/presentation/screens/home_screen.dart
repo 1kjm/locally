@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:locally/presentation/screens/directory_screen.dart';
+import 'package:rive/rive.dart' as rive;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,12 +19,12 @@ class HomeScreen extends StatelessWidget {
               builder: (context) => Text('Athirampuzha'),
             ),
             bottom: TabBar(
-                unselectedLabelColor: Colors.redAccent,
+                unselectedLabelColor: Colors.indigo[200],
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [Colors.redAccent, Colors.orangeAccent]),
-                    color: Colors.redAccent),
+                        colors: [Colors.indigo, Colors.indigoAccent]),
+                    color: Colors.white),
                 tabs: [
                   Tab(icon: Icon(Icons.messenger_rounded)),
                   Tab(icon: Icon(Icons.library_books_rounded)),
@@ -31,7 +32,15 @@ class HomeScreen extends StatelessWidget {
           ),
           body: Container(
             child: TabBarView(
-              children: [Icon(Icons.flight, size: 350), DirectoryScreen()],
+              children: [
+                Container(
+                  child: rive.RiveAnimation.network(
+                    'https://cdn.rive.app/animations/vehicles.riv',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                DirectoryScreen()
+              ],
             ),
           ),
         ),

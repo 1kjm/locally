@@ -9,8 +9,8 @@ class AppTheme {
 
   static get theme {
     return _themeData.copyWith(
-        scaffoldBackgroundColor: Colors.lime[50],
-        tabBarTheme: TabBarTheme(labelColor: Colors.black),
+        scaffoldBackgroundColor: Colors.white,
+        tabBarTheme: TabBarTheme(labelColor: Colors.white),
         primaryColor: Colors.white,
         appBarTheme: AppBarTheme(
             iconTheme: IconThemeData(

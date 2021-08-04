@@ -18,8 +18,8 @@ class _DropDownFilterWidgetState extends State<DropDownFilterWidget> {
       converter: (store) => store.state,
       builder: (context, vm) {
         return DropdownButton<String>(
-            style: TextStyle(color: Colors.red),
-            iconEnabledColor: Colors.blue,
+            style: TextStyle(color: Colors.indigo),
+            iconEnabledColor: Colors.indigo[700],
             dropdownColor: Colors.white,
             value: vm.filterState.dropDownFilterParameter, //DropdownMenu Logic
             items: filterParameters

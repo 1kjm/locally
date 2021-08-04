@@ -53,49 +53,25 @@ class _ActfBodyState extends State<ActfBody> {
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   SizedBox(height: size.height * 0.07),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: RichText(
-                        text: TextSpan(
-                            text: 'Please Enter Your Location',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black))),
-                  ),
-                  Card(
-                    color: Colors.deepPurpleAccent[400],
-                    elevation: 10.0,
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: textEditingController,
-                      focusNode: _myFocusNode,
-                      onChanged: _textFieldListner,
-                      decoration: InputDecoration(
-                        fillColor: Colors.lime[200],
-                        border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        filled: true,
-                        icon: (const Icon(
-                          Icons.search,
-                          color: Colors.red,
-                        )),
-                        hintText: 'Enter Your Location',
-                        labelText: 'Locations',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.05),
+                  searchBarCard(),
+                  SizedBox(height: size.height * 0.03),
                   !streamSnapshot.data!.buildTrigger
-                      ? Center(
-                          child: ElevatedButton(
-                              onPressed: _onElevatedButtonPressed,
-                              child: const Text(
-                                '    Search    ',
-                                style: const TextStyle(fontSize: 18.0),
-                              )),
+                      ? Align(
+                          alignment: Alignment.center,
+                          child: ClipRRect(
+                            clipBehavior: Clip.antiAlias,
+                            borderRadius: BorderRadius.circular(20),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.indigo[600]),
+                                ),
+                                onPressed: _onElevatedButtonPressed,
+                                child: const Text(
+                                  '    Search    ',
+                                  style: const TextStyle(fontSize: 18.0),
+                                )),
+                          ),
                         )
                       : Container(),
                   SizedBox(height: size.height * 0.04),
@@ -113,6 +89,49 @@ class _ActfBodyState extends State<ActfBody> {
               : null,
         )
       ],
+    );
+  }
+
+  Card searchBarCard() {
+    return Card(
+      color: Colors.indigo[50],
+      margin: EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: EdgeInsets.only(
+                top: 20,
+                bottom: 20,
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.indigo[700],
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: SizedBox(
+                  child: Icon(
+                Icons.search_rounded,
+                color: Colors.white,
+              )),
+            ),
+          ),
+          Expanded(
+            flex: 8,
+            child: ClipRRect(
+              child: TextFormField(
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  focusNode: _myFocusNode,
+                  controller: textEditingController,
+                  onChanged: _textFieldListner,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: '  Search Location',
+                  )),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -139,9 +158,12 @@ class _ActfBodyState extends State<ActfBody> {
             leading: Icon(Icons.place_rounded),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            tileColor: index % 2 == 0 ? Colors.amber[100] : Colors.teal[100],
+            tileColor: Colors.blue[50],
             onTap: () => onListTileTapped(locationIndex[index]),
-            title: Text(locationIndex[index].toString()),
+            title: Text(
+              locationIndex[index].toString(),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           );
         });
   }

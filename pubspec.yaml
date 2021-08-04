@@ -35,6 +35,7 @@ dependencies:
   firebase: ^9.0.1
   cloud_firestore: ^2.3.0
   shared_preferences: ^2.0.6
+  rive: ^0.7.26
   
 
 dev_dependencies:

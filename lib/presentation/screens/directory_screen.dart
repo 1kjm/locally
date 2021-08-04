@@ -79,14 +79,15 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
               border: new Border(
                   right: new BorderSide(width: 1.0, color: Colors.white24))),
           child: Icon(isPeople ? Icons.people : Icons.store,
-              color: Colors.blueAccent),
+              color: Colors.indigo[800]),
         ),
         title: Text(
           name.toString(),
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          style:
+              TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.bold),
         ),
-        subtitle:
-            Text(designation.toString(), style: TextStyle(color: Colors.green)),
+        subtitle: Text(designation.toString(),
+            style: TextStyle(color: Colors.green[600])),
         trailing:
             Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0));
   }
