@@ -1,3 +1,4 @@
+import 'package:locally/domain/redux/actions.dart';
 import 'package:locally/features/AutoCompleteTextField/data/redux/reducer.dart';
 import 'package:locally/data/contacts_data/reducer.dart';
 import 'package:locally/features/Navigation/redux/action.dart';
@@ -15,7 +16,7 @@ AppState reducer(AppState prevState, dynamic action) {
   _idForListTileInContactPage(newState, action);
   dataFromFirestore(newState, action);
   locationDataFromFirestore(newState, action);
-
+  storeLocationForAppBar(newState, action);
   return newState;
 }
 
@@ -23,6 +24,13 @@ AppState _idForListTileInContactPage(AppState newState, action) {
   if (action is MakeListTileInContactScreen) {
     newState.tempContacts.addAll(newState.filterState.contacts);
     newState.tempContacts.retainWhere((element) => element.id == action.id);
+  }
+  return newState;
+}
+
+AppState storeLocationForAppBar(AppState newState, action) {
+  if (action is StoreMyLocationForAppBar) {
+    newState.myLocation = action.myLocation;
   }
   return newState;
 }

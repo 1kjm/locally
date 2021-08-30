@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:locally/domain/redux/actions.dart';
 import 'package:locally/features/AutoCompleteTextField/domain/bloc/actions.dart';
 import 'package:locally/features/AutoCompleteTextField/domain/bloc/bloc.dart';
 import 'package:locally/features/AutoCompleteTextField/domain/bloc/model.dart';
@@ -20,6 +21,7 @@ class ActfBody extends StatefulWidget {
 class _ActfBodyState extends State<ActfBody> {
   final TextEditingController textEditingController = TextEditingController();
   FocusNode _myFocusNode = FocusNode();
+  final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     textEditingController.dispose();
@@ -53,7 +55,7 @@ class _ActfBodyState extends State<ActfBody> {
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   SizedBox(height: size.height * 0.07),
-                  searchBarCard(),
+                  searchBarCard(streamSnapshot.data!.locationdata),
                   SizedBox(height: size.height * 0.03),
                   !streamSnapshot.data!.buildTrigger
                       ? Align(
@@ -92,7 +94,7 @@ class _ActfBodyState extends State<ActfBody> {
     );
   }
 
-  Card searchBarCard() {
+  Card searchBarCard(List locations) {
     return Card(
       color: Colors.indigo[50],
       margin: EdgeInsets.all(10),
@@ -119,15 +121,27 @@ class _ActfBodyState extends State<ActfBody> {
           Expanded(
             flex: 8,
             child: ClipRRect(
-              child: TextFormField(
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  focusNode: _myFocusNode,
-                  controller: textEditingController,
-                  onChanged: _textFieldListner,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: '  Search Location',
-                  )),
+              child: Form(
+                key: _formKey,
+                child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Your Location';
+                      }
+                      if (value.isNotEmpty && !locations.contains(value)) {
+                        return "Enter Valid Location";
+                      }
+                      return null;
+                    },
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    focusNode: _myFocusNode,
+                    controller: textEditingController,
+                    onChanged: _textFieldListner,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: '  Search Location',
+                    )),
+              ),
             ),
           )
         ],
@@ -135,13 +149,17 @@ class _ActfBodyState extends State<ActfBody> {
     );
   }
 
-  void _onElevatedButtonPressed() {
-    final store = StoreProvider.of<AppState>(context);
-    store.dispatch(GetDataFromFirestore(
-        payload: textEditingController.value.text.toLowerCase()));
-    store.dispatch(NavigateToNext(destination: Destination.HOMEPAGE));
-    textEditingController.clear();
-    _myFocusNode.unfocus();
+  void _onElevatedButtonPressed() async {
+    if (_formKey.currentState!.validate()) {
+      final store = StoreProvider.of<AppState>(context);
+      await store.dispatch(GetDataFromFirestore(
+          payload: textEditingController.value.text.toLowerCase()));
+      store.dispatch(StoreMyLocationForAppBar(
+          myLocation: textEditingController.value.text.toLowerCase()));
+      store.dispatch(NavigateToNext(destination: Destination.HOMEPAGE));
+      textEditingController.clear();
+      _myFocusNode.unfocus();
+    }
   }
 
   void _textFieldListner(String value) {

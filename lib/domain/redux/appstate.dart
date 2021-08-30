@@ -20,20 +20,21 @@ class AppState {
 
   ///AppTheme
   late ThemeData customtheme;
+  late String myLocation;
 
   ///LocationIndex
   late List locationIndexList;
 
-  AppState({
-    required this.tempContacts,
-    required this.customtheme,
-    required this.locationIndexList,
-  });
+  AppState(
+      {required this.tempContacts,
+      required this.customtheme,
+      required this.locationIndexList,
+      required this.myLocation});
   factory AppState.initialState() => AppState(
-        tempContacts: [],
-        customtheme: AppTheme.theme,
-        locationIndexList: [],
-      );
+      tempContacts: [],
+      customtheme: AppTheme.theme,
+      locationIndexList: [],
+      myLocation: '');
 
   AppState.fromAppState(AppState another) {
     filterState.dropDownFilterParameter =
@@ -46,5 +47,6 @@ class AppState {
         another.filterState.immutableContactStore;
     locationIndexList = another.locationIndexList;
     searchBarState.searchBarState = another.searchBarState.searchBarState;
+    myLocation = another.myLocation;
   }
 }

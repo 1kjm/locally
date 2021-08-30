@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:locally/domain/redux/appstate.dart';
 
 import 'package:locally/presentation/screens/directory_screen.dart';
-import 'package:rive/rive.dart' as rive;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = StoreProvider.of<AppState>(context);
     return DefaultTabController(
       initialIndex: 1,
       length: 2,
@@ -16,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Builder(
-              builder: (context) => Text('Athirampuzha'),
+              builder: (context) => Text(store.state.myLocation),
             ),
             bottom: TabBar(
                 unselectedLabelColor: Colors.indigo[200],
@@ -33,12 +35,7 @@ class HomeScreen extends StatelessWidget {
           body: Container(
             child: TabBarView(
               children: [
-                Container(
-                  child: rive.RiveAnimation.network(
-                    'https://cdn.rive.app/animations/vehicles.riv',
-                    fit: BoxFit.contain,
-                  ),
-                ),
+                Center(child: Container(child: Text("Coming Soon"))),
                 DirectoryScreen()
               ],
             ),
